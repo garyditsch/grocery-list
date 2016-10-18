@@ -8,8 +8,17 @@
                         <h3 class="panel-title">Add Grocery Item</h3>
                     </div>
                         <div class="panel-body">
-                        <input ng-model="pageCtrl.item.name"></input>
-                        <button class="btn btn-primary" ng-submit="">Add Item</button>
+                          <div class="form-group">
+                            <form ng-submit="pageCtrl.saveItem(pageCtrl.editedItem)">
+                                Item:
+                                <input ng-model="pageCtrl.editedItem.name" class="form-control"></input><br>
+                                How Many:
+                                <input ng-model="pageCtrl.editedItem.quantity" class="form-control"></input><br>
+                                Cost:
+                                <input ng-model="pageCtrl.editedItem.price" class="form-control"></input><br>
+                                <button class="btn btn-primary">Add Item</button>
+                            </form>
+                          </div>
                         </div>
                 </div>
             </div>

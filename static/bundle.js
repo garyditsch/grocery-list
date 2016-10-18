@@ -31887,7 +31887,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var PageModule = _angular2.default.module('grocery_items', ['ngResource']).factory('groceryAPIService', _pageApi2.default).component('pageMain', _page2.default).component('mainItem', _mainItem2.default);
+	var PageModule = _angular2.default.module('grocery_items', ['ngResource']).config(function ($resourceProvider) {
+	    $resourceProvider.defaults.stripTrailingSlashes = false;
+	}).factory('groceryAPIService', _pageApi2.default).component('pageMain', _page2.default).component('mainItem', _mainItem2.default);
 	
 	exports.default = PageModule;
 
@@ -32800,7 +32802,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\"> <!-- Main Row for Content -->\n    <div class=\"col-md-10 col-md-offset-1\"> <!-- Main Column to give content width and center -->\n\n        <div class=\"row\">\n            <div class=\"col-md-4\"> <!-- End First Column (Inner) -->\n                <div class=\"panel panel-default\">\n                    <div class=\"panel-heading\">\n                        <h3 class=\"panel-title\">Add Grocery Item</h3>\n                    </div>\n                        <div class=\"panel-body\">\n                        <input ng-model=\"pageCtrl.item.name\"></input>\n                        <button class=\"btn btn-primary\" ng-submit=\"\">Add Item</button>\n                        </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-8\">\n                <div>\n                <main-item \n                    ng-repeat=\"kroger_item in pageCtrl.grocery_items\" \n                    item=\"kroger_item\" \n                >\n                </div>\n            </div> <!-- End Second Column (Inner) -->\n        </div>\n\n    </div> <!-- Ends Main Column -->    \n</div> <!-- Ends Main Row -->"
+	module.exports = "<div class=\"row\"> <!-- Main Row for Content -->\n    <div class=\"col-md-10 col-md-offset-1\"> <!-- Main Column to give content width and center -->\n\n        <div class=\"row\">\n            <div class=\"col-md-4\"> <!-- End First Column (Inner) -->\n                <div class=\"panel panel-default\">\n                    <div class=\"panel-heading\">\n                        <h3 class=\"panel-title\">Add Grocery Item</h3>\n                    </div>\n                        <div class=\"panel-body\">\n                          <div class=\"form-group\">\n                            <form ng-submit=\"pageCtrl.saveItem(pageCtrl.editedItem)\">\n                                Item:\n                                <input ng-model=\"pageCtrl.editedItem.name\" class=\"form-control\"></input><br>\n                                How Many:\n                                <input ng-model=\"pageCtrl.editedItem.quantity\" class=\"form-control\"></input><br>\n                                Cost:\n                                <input ng-model=\"pageCtrl.editedItem.price\" class=\"form-control\"></input><br>\n                                <button class=\"btn btn-primary\">Add Item</button>\n                            </form>\n                          </div>\n                        </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-8\">\n                <div>\n                <main-item \n                    ng-repeat=\"kroger_item in pageCtrl.grocery_items\" \n                    item=\"kroger_item\" \n                >\n                </div>\n            </div> <!-- End Second Column (Inner) -->\n        </div>\n\n    </div> <!-- Ends Main Column -->    \n</div> <!-- Ends Main Row -->"
 
 /***/ },
 /* 9 */
@@ -32811,8 +32813,12 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
 	function PageController($interval, groceryAPIService) {
 	    var ctrl = this;
+	    ctrl.editedItem = {};
 	
 	    function getGroceries() {
 	        groceryAPIService.grocery_items.get().$promise.then(function (data) {
@@ -32820,9 +32826,14 @@
 	        });
 	    }
 	    getGroceries();
-	    $interval(getGroceries, 3000);
+	    $interval(getGroceries, 10000);
 	
-	    ctrl.groceryItem = {};
+	    ctrl.saveItem = function saveItem(editedItem) {
+	        groceryAPIService.grocery_items.save(editedItem).$promise.then(function (savedItem) {
+	            ctrl.grocery_items = [savedItem].concat(_toConsumableArray(ctrl.grocery_items));
+	            ctrl.editedItem = {};
+	        });
+	    };
 	}
 	exports.default = PageController;
 
@@ -32861,7 +32872,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n    {{ mainItemCtrl.item.name }} |\n    {{ mainItemCtrl.item.quantity }} |\n    {{ mainItemCtrl.item.price }}\n</div>"
+	module.exports = "<div>\n\n    <ul class=\"list-group\">\n      <li class=\"list-group-item\">\n        {{ mainItemCtrl.item.name }} |\n        {{ mainItemCtrl.item.quantity }} |\n        {{ mainItemCtrl.item.price }}\n      </li>\n    </ul>\n\n</div>"
 
 /***/ },
 /* 12 */

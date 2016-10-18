@@ -1,5 +1,6 @@
 function PageController($interval, groceryAPIService) {
     const ctrl = this;
+    ctrl.editedItem = {};
 
     function getGroceries() {
         groceryAPIService.grocery_items.get().$promise.then((data) => {
@@ -7,10 +8,16 @@ function PageController($interval, groceryAPIService) {
         });
     }
     getGroceries();
-    $interval(getGroceries, 3000);
+    $interval(getGroceries, 10000);
 
-    ctrl.groceryItem = {
-
+    ctrl.saveItem = function saveItem(editedItem) {
+        groceryAPIService.grocery_items.save(editedItem).$promise.then((savedItem) => {
+            ctrl.grocery_items = [
+                savedItem,
+                ...ctrl.grocery_items,
+            ];
+        ctrl.editedItem = {};
+        });
     };
 }
 export default PageController;
