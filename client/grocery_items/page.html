@@ -1,0 +1,28 @@
+<div class="row"> <!-- Main Row for Content -->
+    <div class="col-md-10 col-md-offset-1"> <!-- Main Column to give content width and center -->
+
+        <div class="row">
+            <div class="col-md-4"> <!-- End First Column (Inner) -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add Grocery Item</h3>
+                    </div>
+                        <div class="panel-body">
+                        <input ng-model="pageCtrl.item.name"></input>
+                        <button class="btn btn-primary" ng-submit="">Add Item</button>
+                        </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div>
+                <main-item 
+                    ng-repeat="kroger_item in pageCtrl.grocery_items" 
+                    item="kroger_item" 
+                >
+                </div>
+            </div> <!-- End Second Column (Inner) -->
+        </div>
+
+    </div> <!-- Ends Main Column -->    
+</div> <!-- Ends Main Row -->
