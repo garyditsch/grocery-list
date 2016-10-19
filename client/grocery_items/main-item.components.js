@@ -6,6 +6,8 @@ const mainItemComponent = {
     template,
     bindings: {
         item: '<',
+        update: '&',
+        delete: '&',
     },
     controller: MainItemController,
     controllerAs: 'mainItemCtrl',

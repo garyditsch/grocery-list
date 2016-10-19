@@ -5,6 +5,12 @@
         {{ mainItemCtrl.item.name }} |
         {{ mainItemCtrl.item.quantity }} |
         {{ mainItemCtrl.item.price }}
+        <button class="btn btn-default" ng-click="mainItemCtrl.editItem()">
+            <i class="fa fa-pencil-square-o"></i>
+        <button class="btn btn-danger" ng-click="mainItemCtrl.deleteItem()">
+            <i class="fa fa-trash-o"></i>
+        </button>
+        </button>
       </li>
     </ul>
 

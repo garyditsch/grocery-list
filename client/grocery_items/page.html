@@ -3,6 +3,12 @@
 
         <div class="row">
             <div class="col-md-4"> <!-- End First Column (Inner) -->
+
+                <div class="well">
+                        Search
+                        <input ng-model="pageCtrl.grocery_search" class="form-control"></input>
+                </div>
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Add Grocery Item</h3>
@@ -26,8 +32,9 @@
             <div class="col-md-8">
                 <div>
                 <main-item 
-                    ng-repeat="kroger_item in pageCtrl.grocery_items" 
+                    ng-repeat="kroger_item in pageCtrl.grocery_items | filter:pageCtrl.grocery_search" 
                     item="kroger_item" 
+                    delete="pageCtrl.deleteItem(itemToDelete)"
                 >
                 </div>
             </div> <!-- End Second Column (Inner) -->

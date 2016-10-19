@@ -16,8 +16,12 @@ function PageController($interval, groceryAPIService) {
                 savedItem,
                 ...ctrl.grocery_items,
             ];
-        ctrl.editedItem = {};
+            ctrl.editedItem = {};
         });
+    };
+
+    ctrl.deleteSup = function deleteSup(itemToDelete) {
+        groceryAPIService.grocery_items.delete(itemToDelete);
     };
 }
 export default PageController;
