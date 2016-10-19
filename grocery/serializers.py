@@ -5,5 +5,5 @@ class GrocerySerializer(serializers.ModelSerializer):
 
     class Meta: 
         model = GroceryItem
-        fields = ('id', 'name', 'quantity', 'created_date', 'price')
+        fields = ('id', 'name', 'quantity', 'created_date', 'price', 'category')
 

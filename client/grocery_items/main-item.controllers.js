@@ -10,7 +10,7 @@ function MainItemController() {
     };
 
     ctrl.deleteItem = function deleteItem() {
-        ctrl.delete({ itemToDelete: ctrl.kroger_item });
+        ctrl.delete({ itemToDelete: ctrl.item });
     };
 }
 

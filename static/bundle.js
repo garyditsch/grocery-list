@@ -32802,7 +32802,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\"> <!-- Main Row for Content -->\n    <div class=\"col-md-10 col-md-offset-1\"> <!-- Main Column to give content width and center -->\n\n        <div class=\"row\">\n            <div class=\"col-md-4\"> <!-- End First Column (Inner) -->\n\n                <div class=\"well\">\n                        Search\n                        <input ng-model=\"pageCtrl.grocery_search\" class=\"form-control\"></input>\n                </div>\n\n                <div class=\"panel panel-default\">\n                    <div class=\"panel-heading\">\n                        <h3 class=\"panel-title\">Add Grocery Item</h3>\n                    </div>\n                        <div class=\"panel-body\">\n                          <div class=\"form-group\">\n                            <form ng-submit=\"pageCtrl.saveItem(pageCtrl.editedItem)\">\n                                Item:\n                                <input ng-model=\"pageCtrl.editedItem.name\" class=\"form-control\"></input><br>\n                                How Many:\n                                <input ng-model=\"pageCtrl.editedItem.quantity\" class=\"form-control\"></input><br>\n                                Cost:\n                                <input ng-model=\"pageCtrl.editedItem.price\" class=\"form-control\"></input><br>\n                                <button class=\"btn btn-primary\">Add Item</button>\n                            </form>\n                          </div>\n                        </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-8\">\n                <div>\n                <main-item \n                    ng-repeat=\"kroger_item in pageCtrl.grocery_items | filter:pageCtrl.grocery_search\" \n                    item=\"kroger_item\" \n                    delete=\"pageCtrl.deleteItem(itemToDelete)\"\n                >\n                </div>\n            </div> <!-- End Second Column (Inner) -->\n        </div>\n\n    </div> <!-- Ends Main Column -->    \n</div> <!-- Ends Main Row -->"
+	module.exports = "<div class=\"row\"> <!-- Main Row for Content -->\n    <div class=\"col-md-10 col-md-offset-1\"> <!-- Main Column to give content width and center -->\n\n        <div class=\"row\">\n            <div class=\"col-md-4\"> <!-- End First Column (Inner) -->\n\n                <div class=\"well\">\n                        Search Item\n                        <input ng-model=\"pageCtrl.grocery_search_item\" class=\"form-control\"></input>\n                </div>\n                <div class=\"well\">\n                        Search Category\n                        <input ng-model=\"pageCtrl.grocery_search_category\" class=\"form-control\"></input>\n                </div>\n\n                <div class=\"panel panel-default\">\n                    <div class=\"panel-heading\">\n                        <h3 class=\"panel-title\">Add Grocery Item</h3>\n                    </div>\n                        <div class=\"panel-body\">\n                          <div class=\"form-group\">\n                            <form ng-submit=\"pageCtrl.saveItem(pageCtrl.editedItem)\">\n                                Item:\n                                <input ng-model=\"pageCtrl.editedItem.name\" class=\"form-control\"></input><br>\n                                How Many:\n                                <input ng-model=\"pageCtrl.editedItem.quantity\" class=\"form-control\"></input><br>\n                                Cost:\n                                <input ng-model=\"pageCtrl.editedItem.price\" class=\"form-control\"></input><br>\n                                <button class=\"btn btn-primary\">Add Item</button>\n                            </form>\n                          </div>\n                        </div>\n                </div>\n            </div>\n\n            <div class=\"col-md-8\">\n                <div>\n                <main-item \n                    ng-repeat=\"kroger_item in pageCtrl.grocery_items | filter:pageCtrl.grocery_search_item | filter:pageCtrl.grocery_search_category\" \n                    item=\"kroger_item\" \n                    delete=\"pageCtrl.deleteItem(itemToDelete)\"\n                >\n                </div>\n            </div> <!-- End Second Column (Inner) -->\n        </div>\n\n    </div> <!-- Ends Main Column -->    \n</div> <!-- Ends Main Row -->"
 
 /***/ },
 /* 9 */
@@ -32835,7 +32835,8 @@
 	        });
 	    };
 	
-	    ctrl.deleteSup = function deleteSup(itemToDelete) {
+	    ctrl.deleteItem = function deleteItem(itemToDelete) {
+	        console.log(itemToDelete);
 	        groceryAPIService.grocery_items.delete(itemToDelete);
 	    };
 	}
@@ -32878,7 +32879,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n\n    <ul class=\"list-group\">\n      <li class=\"list-group-item\">\n        {{ mainItemCtrl.item.name }} |\n        {{ mainItemCtrl.item.quantity }} |\n        {{ mainItemCtrl.item.price }}\n        <button class=\"btn btn-default\" ng-click=\"mainItemCtrl.editItem()\">\n            <i class=\"fa fa-pencil-square-o\"></i>\n        <button class=\"btn btn-danger\" ng-click=\"mainItemCtrl.deleteItem()\">\n            <i class=\"fa fa-trash-o\"></i>\n        </button>\n        </button>\n      </li>\n    </ul>\n\n</div>"
+	module.exports = "<div>\n\n    <ul class=\"list-group\">\n      <li class=\"list-group-item\">\n        {{ mainItemCtrl.item.name }} |\n        {{ mainItemCtrl.item.quantity }} |\n        {{ mainItemCtrl.item.price }} |\n        {{ mainItemCtrl.item.category }}\n        <button class=\"btn btn-default\" ng-click=\"mainItemCtrl.editItem()\">\n            <i class=\"fa fa-pencil-square-o\"></i>\n        <button class=\"btn btn-danger\" ng-click=\"mainItemCtrl.deleteItem()\">\n            <i class=\"fa fa-trash-o\"></i>\n        </button>\n        </button>\n      </li>\n    </ul>\n\n</div>"
 
 /***/ },
 /* 12 */
@@ -32902,7 +32903,7 @@
 	    };
 	
 	    ctrl.deleteItem = function deleteItem() {
-	        ctrl.delete({ itemToDelete: ctrl.kroger_item });
+	        ctrl.delete({ itemToDelete: ctrl.item });
 	    };
 	}
 	

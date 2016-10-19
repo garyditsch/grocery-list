@@ -20,7 +20,8 @@ function PageController($interval, groceryAPIService) {
         });
     };
 
-    ctrl.deleteSup = function deleteSup(itemToDelete) {
+    ctrl.deleteItem = function deleteItem(itemToDelete) {
+        console.log(itemToDelete);
         groceryAPIService.grocery_items.delete(itemToDelete);
     };
 }
